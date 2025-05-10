@@ -120,7 +120,7 @@ async def handle_profile(message: Message):
     user = message.from_user
     profile_text = (
         f"👤 Ваш профиль:\n\n"
-        f"Имя: {user.full_name}\n"
+        f"Имя: {user.full_name}\n"  
         f"Username: @{user.username if user.username else 'не указан'}\n"
         f"ID: {user.id}"
     )
@@ -145,8 +145,13 @@ async def handle_product_nav(callback: types.CallbackQuery):
         await callback.answer("Товар добавлен в заказы!")
         return
 
-    await callback.message.delete()
+    try:
+        await callback.message.edit_media()
+    except:
+        pass
+
     await show_product(callback.message, new_index)
+    await callback.answer()
 
 
 @dp.message(Command("admin"))
