@@ -1,4 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
+
 def get_payment_confirmation_keyboard():
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="✅ Я оплатил", callback_data="confirm_payment")],
@@ -6,22 +7,17 @@ def get_payment_confirmation_keyboard():
     ])
     return keyboard
 
-def get_payment_keyboard(provider_token: str, price: int, currency: str = "RUB"):
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(
-            text="💳 Оплатить",
-            pay=True
-        )],
-        [InlineKeyboardButton(
-            text="🔙 Назад",
-            callback_data="back_to_product"
-        )]
+def get_payment_method_keyboard():
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="💳 Оплатить онлайн", callback_data="pay_online")],
+        [InlineKeyboardButton(text="👤 Оплатить администратору", callback_data="pay_admin")],
+        [InlineKeyboardButton(text="🔙 Назад", callback_data="back_to_product")]
     ])
+    return keyboard
 
 def get_main_menu():
     buttons = [
         [KeyboardButton(text="📦 Товары")],
-        [KeyboardButton(text="📋 Мои заказы")],
         [KeyboardButton(text="👤 Личный кабинет")]
     ]
     return ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True)
